@@ -21,11 +21,19 @@ public class BikeControl : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 30);
+            gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * (60 - gameObject.GetComponent<Rigidbody>().velocity.magnitude));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(-transform.forward * 30);
+            gameObject.GetComponent<Rigidbody>().AddForce(-transform.forward * gameObject.GetComponent<Rigidbody>().velocity.magnitude);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.RotateAround(transform.position + new Vector3(0, 0, 1), new Vector3(0, 1, 0), 1);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.RotateAround(transform.position + new Vector3(0, 0, 1), new Vector3(0, 1, 0), -1);
         }
     }
 }
