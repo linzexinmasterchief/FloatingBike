@@ -15,6 +15,12 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.transform.position - delta_pos;
+        //transform.position = target.transform.position - delta_pos;
+        //transform.RotateAround(target.transform.position + new Vector3(0, 0, 1), target.transform.rotation.ToEuler(), 1);
+        //相机的位置
+        Vector3 targetPos = target.transform.position + Vector3.up * delta_pos.y - target.transform.forward * delta_pos.z;
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 2f);
+        //相机的角度
+        transform.LookAt(target.transform.position);
     }
 }
