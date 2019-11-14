@@ -756,6 +756,7 @@ MonoBehaviour:
   flfp: {fileID: 1137379792}
   frfp: {fileID: 1757079857}
   bfp: {fileID: 1399976866}
+  engine_flare: {fileID: 1069361368}
   preset_flight_height: 3
   max_speed: 30
 --- !u!54 &983508645
@@ -767,13 +768,19 @@ Rigidbody:
   m_GameObject: {fileID: 983508643}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 3
+  m_Drag: 4
+  m_AngularDrag: 4
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 16
+  m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1069361368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1832772355506223579, guid: 9e14a92894793934996ed455a1b11edd,
+    type: 3}
+  m_PrefabInstance: {fileID: 2035159439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1137379792
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,13 +804,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137379792}
-  m_LocalRotation: {x: 0.05516277, y: 0.11829695, z: 0.8985542, w: -0.41900265}
+  m_LocalRotation: {x: 0, y: -0, z: 0.9063079, w: -0.42261827}
   m_LocalPosition: {x: -0.7, y: -0.8, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2035159440}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -15, y: 0, z: 230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 230}
 --- !u!1 &1178277532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7481217603690454875, guid: 9e14a92894793934996ed455a1b11edd,
@@ -1294,13 +1301,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757079857}
-  m_LocalRotation: {x: 0.11829694, y: 0.0551628, z: 0.4190029, w: -0.89855415}
+  m_LocalRotation: {x: 0, y: -0, z: 0.42261845, w: -0.9063077}
   m_LocalPosition: {x: 0.7, y: -0.8, z: 1.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2035159440}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -15, y: 0, z: 310}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 310}
 --- !u!1 &1759066823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,6 +1865,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 4.166
+      objectReference: {fileID: 0}
+    - target: {fileID: -4124432866960036241, guid: 9e14a92894793934996ed455a1b11edd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8bccbac0db8db4a479edcf86361d695a, type: 2}
+    - target: {fileID: -1832772355506223579, guid: 9e14a92894793934996ed455a1b11edd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e14a92894793934996ed455a1b11edd, type: 3}

@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 909, y: 394}
   m_MaxSize: {x: 22004, y: 14044}
   vertical: 1
-  controlID: 10489
+  controlID: 1830
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_MinSize: {x: 909, y: 394}
   m_MaxSize: {x: 22004, y: 14044}
   vertical: 0
-  controlID: 10490
+  controlID: 1831
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_MinSize: {x: 432, y: 394}
   m_MaxSize: {x: 14002, y: 14044}
   vertical: 1
-  controlID: 10491
+  controlID: 1832
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,9 +220,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 4.7612333, y: 6.9598217, z: 3.4941308}
+    m_Target: {x: 7.5393205, y: 3.5933886, z: 5.56907}
     speed: 2
-    m_Value: {x: 4.7612333, y: 6.9598217, z: 3.4941308}
+    m_Value: {x: 7.5393205, y: 3.5933886, z: 5.56907}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -251,13 +251,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.00039781726, y: -0.67882967, z: -0.00045381667, w: -0.73438245}
+    m_Target: {x: -0.068884864, y: -0.31330422, z: 0.022743035, w: -0.94696677}
     speed: 2
-    m_Value: {x: 0.00039779188, y: -0.6787864, z: -0.00045378774, w: -0.7343356}
+    m_Value: {x: -0.06887908, y: -0.31327793, z: 0.022741126, w: -0.9468873}
   m_Size:
-    m_Target: 19.247435
+    m_Target: 16.596867
     speed: 2
-    m_Value: 19.247435
+    m_Value: 16.596867
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_MinSize: {x: 432, y: 272}
   m_MaxSize: {x: 14002, y: 10022}
   vertical: 0
-  controlID: 10441
+  controlID: 1833
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -463,20 +463,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Models/bike
+    - Assets/Models/bike/materials
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Models/bike
+  - Assets/Models/bike/materials
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\UNITY_WORKSPACE\FloatingBike
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 40}
-    m_SelectedIDs: 54360000
-    m_LastClickedID: 13908
-    m_ExpandedIDs: 00000000363500005436000090370000e63a0000483e000000ca9a3b
+    m_SelectedIDs: d03b0000
+    m_LastClickedID: 15312
+    m_ExpandedIDs: 00000000363500005436000090370000e43a0000463e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -504,7 +504,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000363500005436000090370000e63a0000483e000000ca9a3b
+    m_ExpandedIDs: 00000000363500005436000090370000e43a0000463e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -529,24 +529,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 84e1ffff
-    m_LastClickedInstanceID: -7804
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000d22e0000ec2e0000264a000024330000aac8ffff18310000d02d00006a2d00002c520000142b00008c4f0000f40e020072300100c44a000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: FloatBike
+      m_OriginalName: FloatBike
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 15130
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
@@ -687,8 +687,8 @@ MonoBehaviour:
     y: 0
     width: 431
     height: 771
-  m_MinSize: {x: 277, y: 122}
-  m_MaxSize: {x: 4002, y: 4022}
+  m_MinSize: {x: 275, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 16}
