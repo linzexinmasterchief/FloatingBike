@@ -11,9 +11,9 @@ public class BikeControl : MonoBehaviour
     // back floating point
     [SerializeField] GameObject bfp;
     // main engine flare
-    [SerializeField] GameObject main_engine_flare;
-    [SerializeField] GameObject flfp_engine_flare;
-    [SerializeField] GameObject frfp_engine_flare;
+    //[SerializeField] GameObject main_engine_flare;
+    //[SerializeField] GameObject flfp_engine_flare;
+    //[SerializeField] GameObject frfp_engine_flare;
 
     private float main_engine_output;
     private float flfp_engine_output;
@@ -23,7 +23,7 @@ public class BikeControl : MonoBehaviour
     public float preset_flight_height;
     private float delta_height;
     public float main_engine_max_output;
-    private float ship_z_rotation;
+    private float turning_force;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,8 @@ public class BikeControl : MonoBehaviour
         flfp_engine_output = 0;
         frfp_engine_output = 0;
         bfp_engine_output = 0;
+        // + for right turn, - for left
+        turning_force = 0;
     }
 
     // Update is called once per frame
@@ -62,33 +64,33 @@ public class BikeControl : MonoBehaviour
         }
 
         // rotate force (no engine)
+        turning_force = 0;
         if (Input.GetKey(KeyCode.D))
         {
-            gameObject.GetComponent<Rigidbody>().AddForceAtPosition(8f * transform.right, transform.position + 2 * transform.forward - 0.2f * transform.up);
-            
+            //gameObject.GetComponent<Rigidbody>().AddForceAtPosition(8f * transform.right, transform.position + 2 * transform.forward - 0.2f * transform.up);
+            turning_force += 10f;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-8f * transform.right, transform.position + 2 * transform.forward - 0.2f * transform.up);
-            
+            //gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-8f * transform.right, transform.position + 2 * transform.forward - 0.2f * transform.up);
+            turning_force -= 10f;
         }
         
         // adjust engine flare effect by resizing them
-        main_engine_flare.transform.localScale = new Vector3(1, 1.5f - main_engine_output / main_engine_max_output, 1);
-        flfp_engine_flare.transform.localScale = new Vector3(1, 0.8f + flfp_engine_output / 15, 1);
-        frfp_engine_flare.transform.localScale = new Vector3(1, 0.8f + frfp_engine_output / 15, 1);
+        //main_engine_flare.transform.localScale = new Vector3(1, 1.5f - main_engine_output / main_engine_max_output, 1);
+        //flfp_engine_flare.transform.localScale = new Vector3(1, 0.8f + flfp_engine_output / 15, 1);
+        //frfp_engine_flare.transform.localScale = new Vector3(1, 0.8f + frfp_engine_output / 15, 1);
     }
 
     private void FixedUpdate()
     {
         delta_height = preset_flight_height - transform.position.y;
         // front left engine
-        flfp_engine_output = 15f + 5f * (preset_flight_height - flfp.transform.position.y);
+        flfp_engine_output = 14f + 5f * (preset_flight_height - flfp.transform.position.y) + turning_force;
         gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-flfp.transform.right * flfp_engine_output, flfp.transform.position);
 
-
         // front right engine
-        frfp_engine_output = 15f + 5f * (preset_flight_height - frfp.transform.position.y);
+        frfp_engine_output = 14f + 5f * (preset_flight_height - frfp.transform.position.y) - turning_force;
         gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-frfp.transform.right * frfp_engine_output, frfp.transform.position);
         
         // back engine
