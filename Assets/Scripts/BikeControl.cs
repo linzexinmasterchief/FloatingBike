@@ -10,6 +10,8 @@ public class BikeControl : MonoBehaviour
     [SerializeField] GameObject frfp;
     // back floating point
     [SerializeField] GameObject bfp;
+    // teleporting shader
+    [SerializeField] Material teleport_mat;
     // main engine flare
     //[SerializeField] GameObject main_engine_flare;
     //[SerializeField] GameObject flfp_engine_flare;
@@ -24,6 +26,9 @@ public class BikeControl : MonoBehaviour
     private float delta_height;
     public float main_engine_max_output;
     private float turning_force;
+
+    private bool isTeleport;
+    private Vector3 teleport_target;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +80,12 @@ public class BikeControl : MonoBehaviour
             //gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-8f * transform.right, transform.position + 2 * transform.forward - 0.2f * transform.up);
             turning_force -= 10f;
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            teleport_target = transform.position + new Vector3(transform.forward.x, 0, transform.forward.z) * 50f;
+            isTeleport = true;
+        }
         
         // adjust engine flare effect by resizing them
         //main_engine_flare.transform.localScale = new Vector3(1, 1.5f - main_engine_output / main_engine_max_output, 1);
@@ -84,18 +95,25 @@ public class BikeControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         delta_height = preset_flight_height - transform.position.y;
         // front left engine
-        flfp_engine_output = 14f + 5f * (preset_flight_height - flfp.transform.position.y) + turning_force;
+        flfp_engine_output = 15f + 5f * (preset_flight_height - flfp.transform.position.y) + turning_force;
         gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-flfp.transform.right * flfp_engine_output, flfp.transform.position);
 
         // front right engine
-        frfp_engine_output = 14f + 5f * (preset_flight_height - frfp.transform.position.y) - turning_force;
+        frfp_engine_output = 15f + 5f * (preset_flight_height - frfp.transform.position.y) - turning_force;
         gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-frfp.transform.right * frfp_engine_output, frfp.transform.position);
         
         // back engine
-        bfp_engine_output = 10f + 2.5f * (preset_flight_height - bfp.transform.position.y);
+        bfp_engine_output = 9.8f + 2.5f * (preset_flight_height - bfp.transform.position.y) - Mathf.Abs(turning_force * 0.05f);
 
         gameObject.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(0, 10, 0) * bfp_engine_output, bfp.transform.position);
+        // teleportation
+        if (isTeleport)
+        {
+            transform.position = teleport_target;
+            isTeleport = false;
+        }
     }
 }
