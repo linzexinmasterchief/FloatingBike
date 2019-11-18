@@ -12,6 +12,8 @@ public class BikeControl : MonoBehaviour
     [SerializeField] GameObject bfp;
     // teleporting shader
     [SerializeField] Material teleport_mat;
+    // used to replace the real ship to provide teleport effect
+    [SerializeField] GameObject FloatBike_teleporting;
     // main engine flare
     //[SerializeField] GameObject main_engine_flare;
     //[SerializeField] GameObject flfp_engine_flare;
@@ -22,13 +24,17 @@ public class BikeControl : MonoBehaviour
     private float frfp_engine_output;
     private float bfp_engine_output;
 
+    private float mass;
+
     public float preset_flight_height;
     private float delta_height;
     public float main_engine_max_output;
     private float turning_force;
-
-    private bool isTeleport;
+    
     private Vector3 teleport_target;
+
+    private int teleport_time_count = 0;
+    private Vector3 velocity_before_teleport;
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +44,14 @@ public class BikeControl : MonoBehaviour
         flfp_engine_output = 0;
         frfp_engine_output = 0;
         bfp_engine_output = 0;
+
+        mass = GetComponent<Rigidbody>().mass;
+
         // + for right turn, - for left
         turning_force = 0;
+
+        velocity_before_teleport = new Vector3(0, 0, 0);
+        FloatBike_teleporting.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,10 +64,8 @@ public class BikeControl : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.W))
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * main_engine_output);
-            
+            gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * main_engine_output * mass);
         }
-        Debug.Log(1.5f - main_engine_output / 60);
         if (Input.GetKey(KeyCode.S))
         {
         }
@@ -81,10 +91,18 @@ public class BikeControl : MonoBehaviour
             turning_force -= 10f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        // disable teleport during teleport
+        if (Input.GetKeyDown(KeyCode.Q) && teleport_time_count == 0)
         {
-            teleport_target = transform.position + new Vector3(transform.forward.x, 0, transform.forward.z) * 50f;
-            isTeleport = true;
+            teleport_time_count = 1;
+
+            velocity_before_teleport = transform.GetComponent<Rigidbody>().velocity;
+            Debug.Log(velocity_before_teleport);
+
+            FloatBike_teleporting.transform.position = transform.position;
+            FloatBike_teleporting.transform.rotation = transform.rotation;
+            FloatBike_teleporting.SetActive(true);
+
         }
         
         // adjust engine flare effect by resizing them
@@ -96,24 +114,48 @@ public class BikeControl : MonoBehaviour
     private void FixedUpdate()
     {
 
-        delta_height = preset_flight_height - transform.position.y;
-        // front left engine
-        flfp_engine_output = 15f + 5f * (preset_flight_height - flfp.transform.position.y) + turning_force;
-        gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-flfp.transform.right * flfp_engine_output, flfp.transform.position);
-
-        // front right engine
-        frfp_engine_output = 15f + 5f * (preset_flight_height - frfp.transform.position.y) - turning_force;
-        gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-frfp.transform.right * frfp_engine_output, frfp.transform.position);
-        
-        // back engine
-        bfp_engine_output = 9.8f + 2.5f * (preset_flight_height - bfp.transform.position.y) - Mathf.Abs(turning_force * 0.05f);
-
-        gameObject.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(0, 10, 0) * bfp_engine_output, bfp.transform.position);
         // teleportation
-        if (isTeleport)
+        if (teleport_time_count > 40)
         {
-            transform.position = teleport_target;
-            isTeleport = false;
+            teleport_time_count = 0;
+            FloatBike_teleporting.SetActive(false);
         }
+        if (teleport_time_count == 20)
+        {
+            // teleport when time reach limit
+            teleport_target = transform.position + new Vector3(transform.forward.x, 0, transform.forward.z) * 100f;
+            transform.position = teleport_target;
+
+            transform.GetComponent<Rigidbody>().velocity = velocity_before_teleport;
+
+        }
+        else
+        {
+            // not in teleportation mode
+            // do normal interations
+            delta_height = preset_flight_height - transform.position.y;
+            // front left engine
+            flfp_engine_output = 14f + 5f * (preset_flight_height - flfp.transform.position.y) + turning_force;
+            gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-flfp.transform.right * flfp_engine_output * mass, flfp.transform.position);
+
+            // front right engine
+            frfp_engine_output = 14f + 5f * (preset_flight_height - frfp.transform.position.y) - turning_force;
+            gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-frfp.transform.right * frfp_engine_output * mass, frfp.transform.position);
+
+            // back engine
+            bfp_engine_output = 9.8f + 2.5f * (preset_flight_height - bfp.transform.position.y) - Mathf.Abs(turning_force * 0.05f);
+
+            gameObject.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(0, 10, 0) * bfp_engine_output * mass, bfp.transform.position);
+        }
+
+        if (teleport_time_count > 0)
+        {
+            // start teleportation count
+            teleport_time_count += 1;
+
+            FloatBike_teleporting.transform.position = transform.position;
+            FloatBike_teleporting.transform.rotation = transform.rotation;
+        }
+        
     }
 }
