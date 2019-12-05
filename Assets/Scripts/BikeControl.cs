@@ -57,6 +57,13 @@ public class BikeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (teleport_time_count > 0)
+        {
+            // put teleportation effect model
+            FloatBike_teleporting.transform.position = transform.position;
+            FloatBike_teleporting.transform.rotation = transform.rotation;
+        }
+
         main_engine_output = (main_engine_max_output - gameObject.GetComponent<Rigidbody>().velocity.magnitude);
         if (main_engine_output < 0)
         {
@@ -97,7 +104,6 @@ public class BikeControl : MonoBehaviour
             teleport_time_count = 1;
 
             velocity_before_teleport = transform.GetComponent<Rigidbody>().velocity;
-            Debug.Log(velocity_before_teleport);
 
             FloatBike_teleporting.transform.position = transform.position;
             FloatBike_teleporting.transform.rotation = transform.rotation;
@@ -113,7 +119,11 @@ public class BikeControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        if (teleport_time_count > 0)
+        {
+            // start teleportation count
+            teleport_time_count += 1;
+        }
         // teleportation
         if (teleport_time_count > 40)
         {
@@ -146,15 +156,6 @@ public class BikeControl : MonoBehaviour
             bfp_engine_output = 9.8f + 2.5f * (preset_flight_height - bfp.transform.position.y) - Mathf.Abs(turning_force * 0.05f);
 
             gameObject.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(0, 10, 0) * bfp_engine_output * mass, bfp.transform.position);
-        }
-
-        if (teleport_time_count > 0)
-        {
-            // start teleportation count
-            teleport_time_count += 1;
-
-            FloatBike_teleporting.transform.position = transform.position;
-            FloatBike_teleporting.transform.rotation = transform.rotation;
         }
         
     }
